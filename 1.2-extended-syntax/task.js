@@ -16,22 +16,25 @@ function getResult(a,b,c){
 function getAverageMark(marks){
    
     let sum = 0;
+    let averageMark;
+
     if (marks.length == 0)
         return 0;
     else if (marks.length > 5) 
         marks = marks.slice(0,5);
 
-    for (i = 0; i < marks.length; i++) {
+    for (i = 0; i < marks.length; i++){
         sum += marks[i];
     }
     
-    return sum / marks.length;
+    averageMark = sum / marks.length;
+    return averageMark;
 }
 
 
-/*
 function askDrink(name,dateOfBirthday){
-    // код для задачи №3 писать здесь
-    // return result;
+    let today = new Date(); 
+    let message = (today.getFullYear() - dateOfBirthday.getFullYear() > 18) ? `Не желаете ли олд-фэшн, ${name}?` : `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`
+    return message;
 }
-*/
+
