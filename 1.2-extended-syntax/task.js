@@ -12,12 +12,24 @@ function getResult(a,b,c){
       
     return x;
 }
-/*
+
 function getAverageMark(marks){
-    // код для задачи №2 писать здесь
-    // return averageMark;
+   
+    let sum = 0;
+    if (marks.length == 0)
+        return 0;
+    else if (marks.length > 5) 
+        marks = marks.slice(0,5);
+
+    for (i = 0; i < marks.length; i++) {
+        sum += marks[i];
+    }
+    
+    return sum / marks.length;
 }
 
+
+/*
 function askDrink(name,dateOfBirthday){
     // код для задачи №3 писать здесь
     // return result;
