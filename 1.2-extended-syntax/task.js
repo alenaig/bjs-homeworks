@@ -27,14 +27,13 @@ function getAverageMark(marks){
         sum += marks[i];
     }
     
-    averageMark = sum / marks.length;
-    return averageMark;
+    return sum / marks.length;
 }
 
 
 function askDrink(name,dateOfBirthday){
-    let today = new Date(); 
-    let message = (today.getFullYear() - dateOfBirthday.getFullYear() > 18) ? `Не желаете ли олд-фэшн, ${name}?` : `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`
-    return message;
+    return (new Date().getFullYear() - dateOfBirthday.getFullYear() > 18) ? 
+    `Не желаете ли олд-фэшн, ${name}?` : 
+    `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`
 }
 
