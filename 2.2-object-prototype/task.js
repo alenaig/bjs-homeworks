@@ -1,8 +1,13 @@
  "use strict";
 
-//String.prototype.isPalindrome - для задачи №1
+//Задача 1
+String.prototype.isPalindrome = function() {
+    const str1 = this.toLowerCase().replace(/[^а-ё]+/g,"");
+    const str2 = str1.split("").reverse().join("");
+    return str1 === str2;
+}
 
-
+//Задача 2
 function getAverageMark(marks) {
 
     let sum = 0;
@@ -19,6 +24,7 @@ function getAverageMark(marks) {
     return Math.round(average);
 }
 
+//Задача 3
 function checkBirthday(birthday) {
     
     const now = Date.now();
