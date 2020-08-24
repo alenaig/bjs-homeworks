@@ -91,14 +91,12 @@ class Library {
     }
 
     giveBookByName(bookName) {
-
-        for (let i = 0; i < this.books.length; i++) {
-            if(this.books[i][name] == bookName) {
-                return this.books[i];
-            }
-            this.books = this.books.splice(i, 1);     
-        }  
-        return null; 
+        let ourBook = this.findBookBy("name", bookName);
+        if (ourBook == null) {
+            return null;
+        }
+        this.books.splice(this.books.indexOf(ourBook), 1); 
+        return ourBook;
     }
 }
 
@@ -107,21 +105,55 @@ class Library {
 class StudentLog {
     constructor(name) {
         this.name = name;
-        this.grades = [];
     }
+
     getName() {
         return this.name;
     }
 
     addGrade(grade, subject) {
 
-        if (this.grade < 1 || this.grade > 5 || typeof this.grade == NaN) {
-            console.log(`Вы пытались поставить оценку ${this.grade} по предмету ${this.subject}. Допускаются только числа от 1 до 5.`);
-            return this[subject].length; 
+        if (typeof this[subject] === "undefined") {
+            this[subject] = [];
+        }
+
+        if (grade < 1 || grade > 5 || isNaN(grade)) {
+            console.log(`Вы пытались поставить оценку ${grade} по предмету ${subject}. Допускаются только числа от 1 до 5.`);
+            return this[subject].length;
         }
         else 
-            this[subject].push(this.grade);
+            this[subject].push(grade);
             return this[subject].length;
+    }
+
+    getAverageBySubject(subject) {
+        let subjectSum = 0;
+
+        if (this[subject].length == 0) {
+            return 0;
+        }
+
+        for (let i = 0; i < this[subject].length; i++){
+            subjectSum += this[subject][i];      
+        }
+        return subjectSum / this[subject].length;
+    }
+
+    getTotalAverage() {
+        // let totalSum = 0;
+
+        // const data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+        // const flat = data.reduce((total, amount) => {
+        //     return total.concat(amount);
+        //     }, []);
+
+        // for (let i = 0; i < flat.length; i++) {
+        //      totalSum += flat[i];
+        // }       
+        //     return totalSum / flat.length;
+
+
+
     }
 }
 
