@@ -105,6 +105,7 @@ class Library {
 class StudentLog {
     constructor(name) {
         this.name = name;
+        this.marks = {};
     }
 
     getName() {
@@ -113,47 +114,48 @@ class StudentLog {
 
     addGrade(grade, subject) {
 
-        if (typeof this[subject] === "undefined") {
-            this[subject] = [];
+        if (typeof this.marks[subject] === "undefined") {
+            this.marks[subject] = [];
         }
 
         if (grade < 1 || grade > 5 || isNaN(grade)) {
             console.log(`Вы пытались поставить оценку ${grade} по предмету ${subject}. Допускаются только числа от 1 до 5.`);
-            return this[subject].length;
+            return this.marks[subject].length;
         }
         else 
-            this[subject].push(grade);
-            return this[subject].length;
+            this.marks[subject].push(grade);
+            return this.marks[subject].length;
     }
 
     getAverageBySubject(subject) {
         let subjectSum = 0;
 
-        if (this[subject].length == 0) {
+        if (this.marks[subject].length == 0) {
             return 0;
         }
 
-        for (let i = 0; i < this[subject].length; i++){
-            subjectSum += this[subject][i];      
+        for (let i = 0; i < this.marks[subject].length; i++){
+            subjectSum += this.marks[subject][i];      
         }
-        return subjectSum / this[subject].length;
+        return subjectSum / this.marks[subject].length;
     }
 
     getTotalAverage() {
-        // let totalSum = 0;
 
-        // const data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-        // const flat = data.reduce((total, amount) => {
-        //     return total.concat(amount);
-        //     }, []);
-
-        // for (let i = 0; i < flat.length; i++) {
-        //      totalSum += flat[i];
-        // }       
-        //     return totalSum / flat.length;
-
-
-
+        let sum = 0;
+        let length = 0;
+        if (Object.keys(this.marks).length === 0) {
+            return 0;
+        } 
+        else {
+            for (let key in this.marks) {
+                length += this.marks[key].length;
+                for (let i = 0; i < this.marks[key].length; i++) {
+                    sum += this.marks[key][i];
+                 } 
+            }
+            return sum / length;
+        }
     }
 }
 
