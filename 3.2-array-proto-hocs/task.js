@@ -23,7 +23,7 @@ function sum(...args) {
 
     return function(...args) {
 
-        let memorySearch = memory.find(a => compareArrays(a.args, args));
+        let memorySearch = memory.find(arr => compareArrays(arr.args, args));
     
         if (memorySearch) {
             return memorySearch.result;
