@@ -5,7 +5,7 @@ class AlarmClock {
     }
 
     addClock(time, fn, id) {
-        if(isNaN(id)) {
+        if(isNaN(id) || id == null) {
             throw new Error("Неверный параметр");
         }
 
@@ -22,17 +22,19 @@ class AlarmClock {
 
     getCurrentFormattedTime() {
         const time = new Date();
-        return time.getHours() + ":" + time.getMinutes();
+        let hour = time.getHours() < 10 ? `0${time.getHours()}` : `${time.getHours()}`;
+        let minute = time.getMinutes() < 10 ? `0${time.getMinutes()}` : `${time.getMinutes()}`;
+        return `${hour}:${minute}`;
     }
 
     start() {
         const checkClock = (call) => {
             if(this.getCurrentFormattedTime() === call.time) {
-                return this.callback;
+                return call.fn();
             }
         }
         if (!this.timerId) {
-            this.timerId = () => setInterval(this.alarmCollection.forEach(checkClock),1000)
+            this.timerId = setInterval(() => this.alarmCollection.forEach(checkClock), 1000);
         }
     }
 
@@ -52,3 +54,12 @@ class AlarmClock {
         this.alarmCollection = [];
     }
 }
+
+function testCase() { 
+    let alarm = new AlarmClock();
+    alarm.addClock('21:22', () => console.log('Подъем!'), 1);
+    alarm.addClock('21:23', () => {console.log('Вставай уже!'); alarm.removeClock(2)}, 2);
+    alarm.addClock('21:24', () => {console.log('Ну и спи дальше :('); alarm.clearAlarms(); alarm.printAlarms()}, 3);
+    alarm.printAlarms();
+    alarm.start();
+  }
