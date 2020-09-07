@@ -17,7 +17,13 @@ class AlarmClock {
     }
 
     removeClock(id) {
-        this.alarmCollection.splice(this.alarmCollection.indexOf(item => item.id === id), 1);
+        if(this.alarmCollection.find(item => item.id === id)) {
+            this.alarmCollection.splice(this.alarmCollection.findIndex(item => item.id === id), 1);
+            return true;
+        }
+        else
+        return false;
+        
     }
 
     getCurrentFormattedTime() {
@@ -50,7 +56,8 @@ class AlarmClock {
     }
 
     clearAlarms() {
-        clearInterval(this.timerId);
+        this.stop();
+     //   clearInterval(this.timerId);
         this.alarmCollection = [];
     }
 }
